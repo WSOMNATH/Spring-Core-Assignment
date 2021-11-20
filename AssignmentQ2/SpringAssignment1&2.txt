@@ -1,0 +1,282 @@
+Address.java
+
+package pratiK.demo;
+public class Address 
+{
+	 String street;
+	 String city;
+	 String state;
+	 int zip;
+	 String country;
+	
+	public Address(String street,String city,String state,int zip,String country)
+	{
+		this.street=street;
+		this.city=city;
+		this.state=state;
+		this.zip=zip;
+		this.country=country;
+		
+		System.out.println("This is of address constructor");
+	}
+	
+	public String getStreet() {
+		return street;
+	}
+	public void setStreet(String street) {
+		this.street = street;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
+	}
+	public int getZip() {
+		return zip;
+	}
+	public void setZip(int zip) {
+		this.zip = zip;
+	}
+	public String getCountry() {
+		return country;
+	}
+	public void setCountry(String country) {
+		this.country = country;
+	}
+	/*
+	 * @Override public String toString() { return "Address [street=" + street +
+	 * ", city=" + city + ", state=" + state + ", zip=" + zip + ", country=" +
+	 * country + "]"; }
+	 */
+
+	public Address() {
+		super();
+	}
+	void displayAddress() {
+		System.out.println("customer Address is: "+"street: " + getStreet() + "city: " + getCity() 
+		+ "zipcode: " + getZip() + "country: " +getCountry());
+	}
+	
+	}
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Customer.java
+package pratiK.demo;
+public class Customer
+{
+	 int customerId;
+	 String customerName;
+	 String customerContact;
+     Address customerAddress;
+	 
+	 public Customer(int customerId, String customerName, String customerContact, Address customerAddress) {
+			super();
+			this.customerId = customerId;
+			this.customerName = customerName;
+			this.customerContact = customerContact;
+			this.customerAddress = customerAddress;
+			System.out.println("This is of customer constructor");
+		}
+
+		/*
+		 * @Override public String toString() { return "Customer [customerId=" +
+		 * customerId + ", customerName=" + customerName + ", customerContact=" +
+		 * customerContact + ", customerAddress=" + customerAddress + "]"; }
+		 */
+	public int getCustomerId() {
+		return customerId;
+	}
+	public void setCustomerId(int customerId) {
+		//System.out.println("Setting customer id");
+		this.customerId = customerId;
+	}
+	public String getCustomerName() {
+		return customerName;
+	}
+	public void setCustomerName(String customerName) {
+		//System.out.println("Setting customer name");
+		this.customerName = customerName;
+	}
+	public String getCustomerContact() {
+		return customerContact;
+	}
+	public void setCustomerContact(String customerContact) {
+		//System.out.println("Setting customer contact");
+		this.customerContact = customerContact;
+	}
+	public Address getCustomerAddress() {
+		return customerAddress;
+	}
+	public void setCustomerAddress(Address customerAddress) {
+		//System.out.println("Setting customer address");
+		this.customerAddress = customerAddress;
+	}
+
+	//default constructor
+	public Customer() {
+		super();
+		
+	}
+	
+	void displayInfo() {
+		System.out.println("customer id is :" +getCustomerId());
+		System.out.println("customer name is :" +getCustomerName());
+		System.out.println("customer contact is :" +getCustomerContact());
+		
+	}
+	
+	
+	
+
+
+	}
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Test.java
+package pratiK.demo;
+import org.springframework.context.ApplicationContext;  
+import org.springframework.context.support.ClassPathXmlApplicationContext; 
+
+public class Test {
+  public static void main(String args[])
+  {
+	  
+	 ApplicationContext context= new ClassPathXmlApplicationContext("displayCustomerInfo.xml");
+	 Address address=(Address) context.getBean("address");
+	 Customer customer=(Customer) context.getBean("customer");
+	 customer.displayInfo();
+	 address.displayAddress();
+	 //System.out.println(address);
+	 //System.out.println(customer);
+	  
+  }
+  
+}
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+demo/pom.xml
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>io.springAssignment</groupId>
+  <artifactId>SpringCore_Assignment</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>SpringCore_Assignment</name>
+  
+  <properties>
+		<maven.compiler.target>11</maven.compiler.target>
+		<maven.compiler.source>11</maven.compiler.source>
+		<junit.jupiter.version>5.4.0</junit.jupiter.version>
+	</properties>
+  
+  <dependencies>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+        <version>4.3.12.RELEASE</version>
+        <scope>runtime</scope>
+    </dependency>
+    
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-core</artifactId>
+        <version>4.3.12.RELEASE</version>
+        <scope>runtime</scope>
+    </dependency>
+    
+    <dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>${junit.jupiter.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>${junit.jupiter.version}</version>
+			<scope>test</scope>
+		</dependency>
+</dependencies>
+
+
+</project>
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++=++++++++++
+applicationContext.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans  
+    xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xmlns:p="http://www.springframework.org/schema/p"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans  
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">  
+    
+    
+    <bean id = "question"  class="pratiK.demo.QuestionViaList">
+            <constructor-arg  value = "1" />
+	        <constructor-arg  value = "What is Spring Core?" />
+    	    <constructor-arg>
+		    <list>
+		        <value>Spring core is a part of Spring Framework. </value>  
+		        <value>Spring is one type of a Season</value>  
+		        <value>Spring is one type of material which jumps high </value>
+		    </list>
+	    </constructor-arg>
+     </bean>
+    <bean id = "question1"  class="pratiK.demo.QuestionViaSet">
+	    <constructor-arg  value = "1" />
+		<constructor-arg  value = "What is Spring Core?" /> 
+	    <constructor-arg>
+			    <set>
+			        <value>Spring core is a part of Spring Framework. </value>  
+			        <value>Spring is one type of a Season</value>  
+			        <value>Spring is one type of material which jumps high </value>
+			    </set>
+		 </constructor-arg>
+    </bean>
+	<bean id = "question2"  class="pratiK.demo.QuestionViaMap">
+	    <constructor-arg  value = "1" />
+	    <constructor-arg  value = "What is Spring Core?" />
+
+			<constructor-arg>
+					    <map>
+					        <entry key="Spring core is a part of Spring Framework" value="Anil"></entry >  
+					        <entry key="Spring is one type of a Season" value="Singh"></entry >  
+					        <entry key="Spring is one type of material which jumps high " value="Anil Singh"></entry>
+					    </map>
+			</constructor-arg>
+    </bean>
+</beans>
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+displayCustomerInfo.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans  
+    xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xmlns:p="http://www.springframework.org/schema/p"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans  
+               http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">  
+  
+
+
+<bean name="address" class="pratiK.demo.Address">  
+<property name="street"  value = "MS Dhoni street"> </property>  
+<property name="city"   value = "Thane">  </property>
+<property name="state"   value = "maharashtra">  </property>
+<property name="zip"  value = "400604"> </property>
+<property name="country"  value = "India"> </property>
+</bean>  
+
+<bean name="customer" class="pratiK.demo.Customer">  
+<property name="customerId" value = "1">  </property>  
+<property name="customerName"  value = "Anil">  </property>
+<property name="customerContact"  value = "8779930443">  </property>
+<property name="customerAddress" ref = "address">  </property>
+
+</bean>  
+  
+</beans>
+
+
